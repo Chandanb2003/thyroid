@@ -1,0 +1,7 @@
+flask
+flask-cors
+pillow
+numpy<2
+requests
+gunicorn
+python-dotenv
