@@ -1,0 +1,28 @@
+FROM python:3.9-slim
+
+# Set Hugging Face cache directory
+ENV TRANSFORMERS_CACHE=/tmp/models
+ENV HF_HOME=/tmp/models
+
+WORKDIR /app
+
+# Install system dependencies first
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY requirements.txt .
+
+# Install Python dependencies
+RUN pip install --no-cache-dir -r requirements.txt && \
+    # Pre-download models during build
+    python -c "from transformers import pipeline; pipeline('object-detection', model='D3STRON/bone-fracture-detr')" && \
+    python -c "from transformers import pipeline; pipeline('image-classification', model='Heem2/bone-fracture-detection-using-xray')" && \
+    python -c "from transformers import pipeline; pipeline('image-segmentation', model='nandodeomkar/autotrain-fracture-detection-using-google-vit-base-patch-16-54382127388')"
+
+COPY . .
+
+EXPOSE 5000
+
+# Use Gunicorn for production
+CMD ["gunicorn", "--bind", "0.0.0.0:5000", "--workers", "1", "--timeout", "120", "app:app"]
