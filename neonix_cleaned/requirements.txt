@@ -1,0 +1,7 @@
+Flask==3.0.3
+langchain==0.2.12
+langchain-google-genai==0.0.11
+langchain-community==0.2.11
+faiss-cpu==1.7.4
+python-dotenv==1.0.1
+gunicorn==23.0.0

@@ -1,0 +1,11 @@
+Flask==3.0.3
+flask-cors==4.0.0
+torch==2.2.2
+torchvision==0.17.2
+transformers==4.44.2
+Pillow==10.3.0
+numpy==1.26.4
+soundfile==0.12.1
+requests==2.32.3
+gunicorn==23.0.0
+

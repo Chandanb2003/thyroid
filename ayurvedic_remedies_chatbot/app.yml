@@ -1,0 +1,10 @@
+runtime: python310
+
+entrypoint: gunicorn -b :$PORT main:app
+
+handlers:
+- url: /.*
+  script: auto
+
+env_variables:
+  GROQ_API_KEY: "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"
